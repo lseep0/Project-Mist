@@ -1,15 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GamesViewer.aspx.cs" Inherits="_1Viewer" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GamesViewer.aspx.cs" Inherits="AdminSystem.GamesViewer" %>
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Game Data Viewer</title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-        </div>
+            <h2>Session Data Processing Output</h2>
+            </div>
     </form>
 </body>
 </html>
