@@ -8,58 +8,93 @@ namespace TestingGames
     public class GameTests
     {
         [TestMethod]
-        public void InstanceOK()
+        public void FindMethodOK()
         {
             clsGame AGame = new clsGame();
-            Assert.IsNotNull(AGame);
+            Boolean Found = false;
+            Int32 GameId = 21;
+            Found = AGame.Find(GameId);
+            Assert.IsTrue(Found);
         }
 
         [TestMethod]
-        public void GameIdPropertyOK()
+        public void TestGameIdFound()
         {
             clsGame AGame = new clsGame();
-            Int32 TestData = 1;
-            AGame.GameId = TestData;
-            Assert.AreEqual(AGame.GameId, TestData);
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 GameId = 21;
+            Found = AGame.Find(GameId);
+
+            if (AGame.GameId != 21)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
         }
 
         [TestMethod]
-        public void TitlePropertyOK()
+        public void TestTitleFound()
         {
             clsGame AGame = new clsGame();
-            string TestData = "Elden Ring";
-            AGame.Title = TestData;
-            Assert.AreEqual(AGame.Title, TestData);
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 GameId = 21;
+            Found = AGame.Find(GameId);
+
+            if (AGame.Title != "Test Game")
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
         }
 
         [TestMethod]
-        public void PricePropertyOK()
+        public void TestPriceFound()
         {
             clsGame AGame = new clsGame();
-            decimal TestData = 59.99m;
-            AGame.Price = TestData;
-            Assert.AreEqual(AGame.Price, TestData);
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 GameId = 21;
+            Found = AGame.Find(GameId);
+
+            if (AGame.Price != 49.99m)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
         }
 
         [TestMethod]
-        public void ReleaseDatePropertyOK()
+        public void TestReleaseDateFound()
         {
             clsGame AGame = new clsGame();
-            // Create some test date data
-            DateTime TestData = DateTime.Now.Date;
-            // Assign the data to the property
-            AGame.ReleaseDate = TestData;
-            // Test to see that the two values are the same
-            Assert.AreEqual(AGame.ReleaseDate, TestData);
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 GameId = 21;
+            Found = AGame.Find(GameId);
+
+            if (AGame.ReleaseDate != Convert.ToDateTime("23/12/2022"))
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
         }
 
         [TestMethod]
-        public void IsEarlyAccessPropertyOK()
+        public void TestIsEarlyAccessFound()
         {
             clsGame AGame = new clsGame();
-            bool TestData = true;
-            AGame.IsEarlyAccess = TestData;
-            Assert.AreEqual(AGame.IsEarlyAccess, TestData);
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 GameId = 21;
+            Found = AGame.Find(GameId);
+
+            if (AGame.IsEarlyAccess != true)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
         }
     }
 }
