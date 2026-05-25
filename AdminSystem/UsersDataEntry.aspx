@@ -16,12 +16,12 @@
     <form id="form1" runat="server">
         <div>
         </div>
-        <asp:TextBox ID="txtUserID" runat="server" style="z-index: 1; left: 89px; top: 32px; position: absolute"></asp:TextBox>
+        <asp:TextBox ID="txtUserID" runat="server" style="z-index: 1; left: 86px; top: 32px; position: absolute; height: 22px; width: 127px;"></asp:TextBox>
         <p>
             <asp:Label ID="UserID" runat="server" style="z-index: 1; left: 18px; top: 33px; position: absolute" Text="User ID"></asp:Label>
         </p>
         <asp:Label ID="lblUsername" runat="server" style="z-index: 1; left: 15px; top: 73px; position: absolute; margin-bottom: 0px" Text="Username " height="19px"></asp:Label>
-        <asp:TextBox ID="txtUsername" runat="server" style="z-index: 1; left: 85px; top: 71px; position: absolute" height="22px" width="128px"></asp:TextBox>
+        <asp:TextBox ID="txtUserName" runat="server" style="z-index: 1; left: 85px; top: 71px; position: absolute" height="22px" width="128px"></asp:TextBox>
         <p>
             &nbsp;</p>
         <asp:Label ID="lblPassword" runat="server" style="z-index: 1; left: 15px; top: 109px; position: absolute" Text="Password" height="19px"></asp:Label>
