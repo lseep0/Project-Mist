@@ -7,6 +7,7 @@ namespace Testing1
     [TestClass]
     public class tstUsers
     {
+        /****************INSTANCE OF THE CLASS TEST****************/
         [TestMethod]
         public void InstanceOK()
         {
@@ -16,6 +17,7 @@ namespace Testing1
             Assert.IsNotNull(AnUsers);
         }
 
+        /***************** PROPERTY OK TESTS*****************/
         [TestMethod]
         public void ActivePropertyOK()
         {
@@ -28,6 +30,8 @@ namespace Testing1
             //test to see that the two values are the same
             Assert.AreEqual(AnUsers.Active, TestData);
         }
+
+        
         [TestMethod]
         public void JoinedDatePropertyOK()
         {
@@ -103,6 +107,7 @@ namespace Testing1
             Assert.AreEqual(AnUsers.UserEmailVerified, TestData);
 
         }
+        /***************** FIND METHOD TEST*****************/
         [TestMethod]
         public void FindMethodOK()
         {
@@ -117,6 +122,7 @@ namespace Testing1
             //test to see that the result is true
             Assert.IsTrue(Found);
         }
+        /***************** PROPRTY DATA TESTS*****************/
         [TestMethod]
         public void TestUserIDFound()
         {
@@ -138,6 +144,135 @@ namespace Testing1
             }
             Assert.IsTrue(OK);
         }
+        [TestMethod]
+        public void TestJoinedDateFound()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //boolean variable to store the results of the validation
+            Boolean Found = false;
+            //create a boolean variable to record if the data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 UserID = 1;
+            //invoke the method
+            Found = AnUsers.Find(UserID);
+            //check the user id
+            if (AnUsers.JoinedDate != Convert.ToDateTime("23/12/2022"))
+            {
+                //test to fail
+                OK = false;
+            }
+            //test to see that the result is true
+            Assert.IsTrue(OK);
 
-    }
+        }
+        [TestMethod]
+        public void TestActiveFound()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //boolean variable to store the results of the validation
+            Boolean Found = false;
+            //create a boolean variable to record if the data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 UserID = 1;
+            //invoke the method
+            Found = AnUsers.Find(UserID);
+            //check the user id
+            if (AnUsers.Active != true)
+            {
+                //test to fail
+                OK = false;
+            }
+            //test to see that the result is true
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+        public void TestUserEmailVerifiedFound()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //boolean variable to store the results of the validation
+            Boolean Found = false;
+            //create a boolean variable to record if the data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 UserID = 1;
+            //invoke the method
+            Found = AnUsers.Find(UserID);
+            //check the user id
+            if (AnUsers.UserEmailVerified != true)
+            {
+                OK = false;
+            }
+            //test to see that the result is true
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+        public void TestUserNameFound()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //boolean variable to store the results of the validation
+            Boolean Found = false;
+            //create a boolean variable to record if the data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 UserID = 1;
+            //invoke the method
+            Found = AnUsers.Find(UserID);
+            //check the user id
+            if (AnUsers.UserName != "John Pork")
+            {
+                OK = false;
+            }
+            //test to see that the result is true
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+        public void TestPasswordFound()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //boolean variable to store the results of the validation
+            Boolean Found = false;
+            //create a boolean variable to record if the data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 UserID = 1;
+            //invoke the method
+            Found = AnUsers.Find(UserID);
+            //check the user id
+            if (AnUsers.Password != "1234")
+            {
+                OK = false;
+            }
+            //test to see that the result is true
+            Assert.IsTrue(OK);
+
+        }
+        [TestMethod]
+        public void TestUserEmailFound()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //boolean variable to store the results of the validation
+            Boolean Found = false;
+            //create a boolean variable to record if the data is OK (assume it is)
+            Boolean OK = true;
+            //create some test data to use with the method
+            Int32 UserID = 1;
+            //invoke the method
+            Found = AnUsers.Find(UserID);
+            //check the user id
+            if (AnUsers.UserEmail != "johnpork@gmail.com")
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+    } 
 }
+
