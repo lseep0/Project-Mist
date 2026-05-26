@@ -38,5 +38,35 @@ namespace ClassLibrary
                 return false;
             }
         }
+
+        public string Valid(string title, string price, string releaseDate)
+        {
+            string Error = "";
+            DateTime DateTemp;
+
+            // --- Title Validation ---
+            if (title.Length == 0) { Error = Error + "The title cannot be blank. "; }
+            if (title.Length > 50) { Error = Error + "The title must be less than 50 chars. "; }
+
+            // --- Price Validation ---
+            try
+            {
+                decimal PriceTemp = Convert.ToDecimal(price);
+                if (PriceTemp < 0) { Error = Error + "Price cannot be negative. "; }
+                if (PriceTemp > 1000) { Error = Error + "Price is too high. "; }
+            }
+            catch { Error = Error + "The price was not a valid number. "; }
+
+            // --- Release Date Validation ---
+            try
+            {
+                DateTemp = Convert.ToDateTime(releaseDate);
+                if (DateTemp < Convert.ToDateTime("01/01/1950")) { Error = Error + "Date is too far in the past. "; }
+                if (DateTemp > DateTime.Now.Date) { Error = Error + "Date cannot be in the future. "; }
+            }
+            catch { Error = Error + "The date was not a valid date. "; }
+
+            return Error;
+        }
     }
 }
