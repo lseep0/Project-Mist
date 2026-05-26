@@ -10,45 +10,33 @@ namespace ClassLibrary
         private DateTime mReleaseDate;
         private bool mIsEarlyAccess;
 
-        public Int32 GameId
-        {
-            get { return mGameId; }
-            set { mGameId = value; }
-        }
-
-        public string Title
-        {
-            get { return mTitle; }
-            set { mTitle = value; }
-        }
-
-        public decimal Price
-        {
-            get { return mPrice; }
-            set { mPrice = value; }
-        }
-
-        public DateTime ReleaseDate
-        {
-            get { return mReleaseDate; }
-            set { mReleaseDate = value; }
-        }
-
-        public bool IsEarlyAccess
-        {
-            get { return mIsEarlyAccess; }
-            set { mIsEarlyAccess = value; }
-        }
+        public Int32 GameId { get { return mGameId; } set { mGameId = value; } }
+        public string Title { get { return mTitle; } set { mTitle = value; } }
+        public decimal Price { get { return mPrice; } set { mPrice = value; } }
+        public DateTime ReleaseDate { get { return mReleaseDate; } set { mReleaseDate = value; } }
+        public bool IsEarlyAccess { get { return mIsEarlyAccess; } set { mIsEarlyAccess = value; } }
 
         public bool Find(int GameId)
         {
-            mGameId = 21;
-            mTitle = "Test Game";
-            mPrice = 49.99m;
-            mReleaseDate = Convert.ToDateTime("23/12/2022");
-            mIsEarlyAccess = true;
+            clsDataConnection DB = new clsDataConnection();
 
-            return true;
+            DB.AddParameter("@GameId", GameId);
+            DB.Execute("sproc_tblGame_FilterByGameId");
+
+            if (DB.Count == 1)
+            {
+                mGameId = Convert.ToInt32(DB.DataTable.Rows[0]["GameId"]);
+                mTitle = Convert.ToString(DB.DataTable.Rows[0]["Title"]);
+                mPrice = Convert.ToDecimal(DB.DataTable.Rows[0]["Price"]);
+                mReleaseDate = Convert.ToDateTime(DB.DataTable.Rows[0]["ReleaseDate"]);
+                mIsEarlyAccess = Convert.ToBoolean(DB.DataTable.Rows[0]["IsEarlyAccess"]);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

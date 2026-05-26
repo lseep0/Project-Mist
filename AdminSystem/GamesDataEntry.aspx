@@ -8,6 +8,11 @@
     <form id="form1" runat="server">
         <div>
             <h2>Game Data Entry Screen</h2>
+
+            <asp:Label ID="lblGameId" runat="server" Text="Game ID: "></asp:Label>
+            <asp:TextBox ID="txtGameId" runat="server"></asp:TextBox>
+            <asp:Button ID="btnFind" runat="server" Text="Find" OnClick="btnFind_Click" />
+            <br /><br />
             
             <asp:Label ID="lblTitle" runat="server" Text="Game Title: "></asp:Label>
             <asp:TextBox ID="txtTitle" runat="server"></asp:TextBox>

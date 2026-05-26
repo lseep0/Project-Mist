@@ -13,6 +13,28 @@ namespace AdminSystem
         {
         }
 
+        protected void btnFind_Click(object sender, EventArgs e)
+        {
+            clsGame AGame = new clsGame();
+            Int32 GameId;
+            Boolean Found = false;
+
+            GameId = Convert.ToInt32(txtGameId.Text);
+            Found = AGame.Find(GameId);
+
+            if (Found == true)
+            {
+                txtTitle.Text = AGame.Title;
+                txtPrice.Text = AGame.Price.ToString();
+                txtReleaseDate.Text = AGame.ReleaseDate.ToString("yyyy-MM-dd");
+                chkIsEarlyAccess.Checked = AGame.IsEarlyAccess;
+            }
+            else
+            {
+                txtTitle.Text = "Game Not Found!";
+            }
+        }
+
         protected void btnOK_Click(object sender, EventArgs e)
         {
             clsGame AGame = new clsGame();
