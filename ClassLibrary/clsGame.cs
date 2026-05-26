@@ -18,24 +18,27 @@ namespace ClassLibrary
 
         public bool Find(int GameId)
         {
+            // Create an instance of the data connection
             clsDataConnection DB = new clsDataConnection();
-
+            // Add the parameter for the ID
             DB.AddParameter("@GameId", GameId);
+            // Execute the stored procedure (sproc_tblGame_FilterByGameId)
             DB.Execute("sproc_tblGame_FilterByGameId");
 
+            // If one record is found (there should be only one for a PK)
             if (DB.Count == 1)
             {
+                // Copy the data from the database to the private data members
                 mGameId = Convert.ToInt32(DB.DataTable.Rows[0]["GameId"]);
                 mTitle = Convert.ToString(DB.DataTable.Rows[0]["Title"]);
                 mPrice = Convert.ToDecimal(DB.DataTable.Rows[0]["Price"]);
                 mReleaseDate = Convert.ToDateTime(DB.DataTable.Rows[0]["ReleaseDate"]);
                 mIsEarlyAccess = Convert.ToBoolean(DB.DataTable.Rows[0]["IsEarlyAccess"]);
-
                 return true;
             }
             else
             {
-                return false;
+                return false; // Return false if no record found
             }
         }
 
