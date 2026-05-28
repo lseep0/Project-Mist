@@ -7,7 +7,6 @@ namespace TestingGames
     [TestClass]
     public class GameTests
     {
-        // --- PRACTICAL 10: VALIDATION TEST DATA ---
         string title = "Cyberpunk 2077";
         string price = "49.99";
         string releaseDate = "10/12/2020";
@@ -21,7 +20,6 @@ namespace TestingGames
             Assert.AreEqual(Error, "");
         }
 
-        // --- PRACTICAL 9: DATABASE TESTS ---
         [TestMethod]
         public void FindMethodOK()
         {
@@ -102,7 +100,7 @@ namespace TestingGames
         {
             clsGame AGame = new clsGame();
             string Error = "";
-            string testTitle = "A"; // Boundary
+            string testTitle = "A"; 
             Error = AGame.Valid(testTitle, price, releaseDate);
             Assert.AreEqual(Error, "");
         }
@@ -112,9 +110,9 @@ namespace TestingGames
         {
             clsGame AGame = new clsGame();
             string Error = "";
-            string testTitle = "A".PadRight(51, 'A'); // 51 chars
+            string testTitle = "A".PadRight(51, 'A'); 
             Error = AGame.Valid(testTitle, price, releaseDate);
-            Assert.AreNotEqual(Error, ""); // Should return error
+            Assert.AreNotEqual(Error, ""); 
         }
 
         [TestMethod]
@@ -123,9 +121,6 @@ namespace TestingGames
             clsGame AGame = new clsGame();
             string Error = "";
             string testTitle = null;
-            // This will likely trigger an exception, 
-            // you can use Assert.ThrowsException<NullReferenceException>(() => AGame.Valid(testTitle, price, releaseDate));
-            // Or just check that your code handles it gracefully!
         }
 
         [TestMethod]
@@ -133,9 +128,9 @@ namespace TestingGames
         {
             clsGame AGame = new clsGame();
             string Error = "";
-            string testPrice = "abc"; // Invalid type
+            string testPrice = "abc"; 
             Error = AGame.Valid(title, testPrice, releaseDate);
-            Assert.AreNotEqual(Error, ""); // Should return an error
+            Assert.AreNotEqual(Error, ""); 
         }
 
         [TestMethod]
@@ -143,9 +138,9 @@ namespace TestingGames
         {
             clsGame AGame = new clsGame();
             string Error = "";
-            string testPrice = "99999.00"; // Too high
+            string testPrice = "99999.00"; 
             Error = AGame.Valid(title, testPrice, releaseDate);
-            Assert.AreNotEqual(Error, ""); // Should return an error
+            Assert.AreNotEqual(Error, ""); 
         }
 
         [TestMethod]
@@ -153,9 +148,9 @@ namespace TestingGames
         {
             clsGame AGame = new clsGame();
             string Error = "";
-            string testDate = "01/01/1900"; // Too old
+            string testDate = "01/01/1900"; 
             Error = AGame.Valid(title, price, testDate);
-            Assert.AreNotEqual(Error, ""); // Should return error
+            Assert.AreNotEqual(Error, ""); 
         }
 
         [TestMethod]
@@ -163,9 +158,9 @@ namespace TestingGames
         {
             clsGame AGame = new clsGame();
             string Error = "";
-            string testDate = DateTime.Now.Date.ToString(); // Exactly today
+            string testDate = DateTime.Now.Date.ToString(); 
             Error = AGame.Valid(title, price, testDate);
-            Assert.AreEqual(Error, ""); // Should be valid
+            Assert.AreEqual(Error, ""); 
         }
 
         [TestMethod]
@@ -173,9 +168,9 @@ namespace TestingGames
         {
             clsGame AGame = new clsGame();
             string Error = "";
-            string testDate = "not-a-date"; // Garbage text
+            string testDate = "not-a-date"; 
             Error = AGame.Valid(title, price, testDate);
-            Assert.AreNotEqual(Error, ""); // Should return error
+            Assert.AreNotEqual(Error, ""); 
         }
     }
 }

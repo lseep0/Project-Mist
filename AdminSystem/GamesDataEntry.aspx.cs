@@ -7,11 +7,8 @@ namespace AdminSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Only run on the initial page load (not after clicking buttons)
             if (IsPostBack == false)
             {
-                // Check if we are in Edit mode by checking the Session
-                // If it's not 0, it means we passed an ID from the List page
                 if (Convert.ToInt32(Session["GameId"]) != 0)
                 {
                     DisplayGame();
@@ -45,7 +42,7 @@ namespace AdminSystem
                 txtPrice.Text = AGame.Price.ToString();
                 txtReleaseDate.Text = AGame.ReleaseDate.ToString("yyyy-MM-dd");
                 chkIsEarlyAccess.Checked = AGame.IsEarlyAccess;
-                lblError.Text = ""; // Clear errors
+                lblError.Text = ""; 
             }
             else
             {
@@ -68,12 +65,12 @@ namespace AdminSystem
 
                 clsGameCollection GameList = new clsGameCollection();
 
-                if (AGame.GameId == 0) // ADD MODE
+                if (AGame.GameId == 0) 
                 {
                     GameList.ThisGame = AGame;
                     GameList.Add();
                 }
-                else // UPDATE MODE
+                else 
                 {
                     GameList.ThisGame.Find(AGame.GameId);
                     GameList.ThisGame = AGame;
