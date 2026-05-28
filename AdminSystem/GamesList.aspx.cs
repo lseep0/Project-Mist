@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,7 +12,62 @@ namespace AdminSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Code to load your list of games will go here!
+            if (IsPostBack == false)
+            {
+                DisplayGames();
+            }
         }
+
+        void DisplayGames()
+        {
+            clsGameCollection AllGames = new clsGameCollection();
+
+            lstGameList.DataSource = AllGames.GameList;
+
+            lstGameList.DataValueField = "GameId";
+
+            lstGameList.DataTextField = "Title";
+
+            lstGameList.DataBind();
+        }
+
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            clsGameCollection AllGames = new clsGameCollection();
+            AllGames.ReportByTitle(txtTitle.Text);
+            lstGameList.DataSource = AllGames.GameList;
+            lstGameList.DataValueField = "GameId";
+            lstGameList.DataTextField = "Title";
+            lstGameList.DataBind();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("GamesDataEntry.aspx");
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (lstGameList.SelectedIndex != -1)
+            {
+                Session["GameId"] = lstGameList.SelectedValue;
+                Response.Redirect("GamesDataEntry.aspx");
+            }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lstGameList.SelectedIndex != -1)
+            {
+                Session["GameId"] = lstGameList.SelectedValue;
+
+                Response.Redirect("GamesConfirmDelete.aspx");
+            }
+            else
+            {
+                lblError.Text = "Please select a record to delete from the list.";
+            }
+        }
+
     }
 }
