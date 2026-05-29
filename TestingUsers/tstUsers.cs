@@ -7,6 +7,14 @@ namespace Testing1
     [TestClass]
     public class tstUsers
     {
+        //good test data
+        //create some test data to pass to the method
+        string UserName = "John Pork";
+        string Password = "1234";
+        string UserEmail = "johnpork@gmail.com";
+        string JoinedDate = DateTime.Now.ToShortDateString();
+
+
         /****************INSTANCE OF THE CLASS TEST****************/
         [TestMethod]
         public void InstanceOK()
@@ -31,7 +39,7 @@ namespace Testing1
             Assert.AreEqual(AnUsers.Active, TestData);
         }
 
-        
+
         [TestMethod]
         public void JoinedDatePropertyOK()
         {
@@ -51,7 +59,7 @@ namespace Testing1
             //create an instance of the class we want to create
             clsUsers AnUsers = new clsUsers();
             //create some test data to assign to the property
-            Int32 TestData = 1;
+            Int32 TestData = 5;
             //assign the data to the property
             AnUsers.UserID = TestData;
             //test to see that the two values are the same
@@ -116,7 +124,7 @@ namespace Testing1
             //boolean variable to store the results of the validation
             Boolean Found = false;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //test to see that the result is true
@@ -133,11 +141,11 @@ namespace Testing1
             //create a boolean variable to record if the data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
-            if (AnUsers.UserID != 1)
+            if (AnUsers.UserID != 5)
             {
                 //test to fail
                 OK = false;
@@ -154,7 +162,7 @@ namespace Testing1
             //create a boolean variable to record if the data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
@@ -177,7 +185,7 @@ namespace Testing1
             //create a boolean variable to record if the data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
@@ -199,7 +207,7 @@ namespace Testing1
             //create a boolean variable to record if the data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
@@ -220,7 +228,7 @@ namespace Testing1
             //create a boolean variable to record if the data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
@@ -241,7 +249,7 @@ namespace Testing1
             //create a boolean variable to record if the data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
@@ -263,7 +271,7 @@ namespace Testing1
             //create a boolean variable to record if the data is OK (assume it is)
             Boolean OK = true;
             //create some test data to use with the method
-            Int32 UserID = 1;
+            Int32 UserID = 5;
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
@@ -273,6 +281,238 @@ namespace Testing1
             }
             Assert.IsTrue(OK);
         }
-    } 
+        [TestMethod]
+        public void ValidMethodOK()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //invoke the method
+            Error = AnUsers.Valid(AnUsers.UserName, AnUsers.Password, AnUsers.UserEmail);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserNameNoMinLessOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string UserName = "";// this should trigger an error message
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+
+        }
+        [TestMethod]
+        public void UserNameMin()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string UserName = "a";// this should be ok
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserNameMinPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string UserName = "aa";// this should be ok
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserNameMaxLessOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string UserName = "aaaaaaaaaaaaaaaaaaaaa";// this should be ok
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserNameMax()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string UserName = "aaaaaaaaaaaaaaaaaaaaaa";// this should be ok
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserNameMid()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //String variable to store any error message
+            String Error = "aaaaaaaaaa";//this should be ok
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+
+        }
+        [TestMethod]
+        public void UserNameMaxPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string UserName = "aaaaaaaaaaaaaaaaaaaaaaa";// this should trigger an error message
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserNameExtremeMax()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string UserName = "";
+            UserName = UserName.PadRight(500, 'a');// this should trigger an error message
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void JoinedDateExtremeMin()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create a variable to store the test data
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is less 100 years
+            TestDate = TestDate.AddYears(-100);
+            //convert the date variable to a string variable
+            string JoinedDate = TestDate.ToString();
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+
+        }
+        [TestMethod]
+        public void JoinedDateMinLessOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create a variable to store the test data
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is less 1 day
+            TestDate = TestDate.AddDays(-1);
+            //convert the date variable to a string variable
+            string JoinedDate = TestDate.ToString();
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void JoinedDateMin()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create a variable to store the test data
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            //convert the date variable to a string variable
+            string JoinedDate = TestDate.ToString();
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void JoinedDateMinPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create a variable to store the test data
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is plus 1 day
+            TestDate = TestDate.AddDays(1);
+            //convert the date variable to a string variable
+            string JoinedDate = TestDate.ToString();
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void JoinedDateExtremeMax()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create a variable to store the test data
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            //change the date to whatever the date is plus 100 years
+            TestDate = TestDate.AddYears(100);
+            //convert the date variable to a string variable
+            string JoinedDate = TestDate.ToString();
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void JoinedDateInvalidData()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create a variable to store the test data
+            string JoinedDate = "this is not a date!";
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+        }
+    }
 }
 
