@@ -110,20 +110,20 @@ namespace ClassLibrary
             //create an instance of the data connection class
             clsDataConnection DB = new clsDataConnection();
             //add the parameter for the user ID to search for
-            DB.AddParameter("@UserID", userID);
+            DB.AddParameter("@userId", userID);
             //execute the stored procedure
             DB.Execute("sproc_tblUsers_FilterByUserID");
             //if one record is found (there should be either one or zero!)
             if (DB.Count == 1)
             {
                 //copy the data from the database to the private data members
-                mUserID = Convert.ToInt32(DB.DataTable.Rows[0]["UserID"]);
-                mJoinedDate = Convert.ToDateTime(DB.DataTable.Rows[0]["JoinedDate"]);
+                mUserID = Convert.ToInt32(DB.DataTable.Rows[0]["userId"]);
+                mJoinedDate = Convert.ToDateTime(DB.DataTable.Rows[0]["join_date"]);
                 mActive = Convert.ToBoolean(DB.DataTable.Rows[0]["Active"]);
-                mUserName = Convert.ToString(DB.DataTable.Rows[0]["UserName"]);
-                mPassword = Convert.ToString(DB.DataTable.Rows[0]["Password"]);
-                mUserEmail = Convert.ToString(DB.DataTable.Rows[0]["UserEmail"]);
-                mUserEmailVerified = Convert.ToBoolean(DB.DataTable.Rows[0]["UserEmailVerified"]);
+                mUserName = Convert.ToString(DB.DataTable.Rows[0]["username"]);
+                mPassword = Convert.ToString(DB.DataTable.Rows[0]["password_hash"]);
+                mUserEmail = Convert.ToString(DB.DataTable.Rows[0]["email"]);
+                mUserEmailVerified = Convert.ToBoolean(DB.DataTable.Rows[0]["EmailVerified"]);
                 //return that everything worked OK
                 return true;
             }
@@ -141,28 +141,59 @@ namespace ClassLibrary
             DateTime DateTemp;
             //if the user name is blank
             if (userName.Length == 0)
-            { 
+            {
                 //record the error
                 Error = Error + "The user name may not be blank : ";
             }
             if (userName.Length > 22)
             {
-                Error = Error + "The user name must be less than 50 characters : ";
+                Error = Error + "The user name must be less than 22 characters : ";
             }
-            //copy the joined date value to the DateTemp variable
-            DateTemp = Convert.ToDateTime(joinedDate);
-            if (DateTemp < DateTime.Now.Date)
+            //create an instance of the datetime to compare with date temp
+            //in the if statements 
+            DateTime Datecomp = DateTime.Now.Date;
+
+            try
             {
-                Error = Error + "The joined date cannot be in the past : ";
+                //copy the joined date value to the date temp variable
+                DateTemp = Convert.ToDateTime(joinedDate);
+                if (DateTemp < Datecomp)//compare Joined date with the current date
+                {
+                    //record the error 
+                    Error = Error + "The joined date cannot be in the past : ";
+                }
+                if (DateTemp > Datecomp)
+                {
+                    //record the error 
+                    Error = Error + "The joined date cannot be in the future : ";
+                }
             }
-            //check to see if the date is greater than today's date
-            if (DateTemp > DateTime.Now.Date)
+            catch
             {
-                //record the error 
-                Error = Error + "The joined date cannot be in the future : ";
+                //record the error
+                Error = Error + "The joined date is not a valid date : ";
             }
-            //return any error message 
+            if (password.Length == 0)
+            {
+                //record the error
+                Error = Error + "The password may not be blank : ";
+            }
+            if(password.Length > 22)
+            {
+                Error = Error + "The password must be less than 22 characters : ";
+            }
+            if (userEmail.Length == 0)
+            {
+                //record the error
+                Error = Error + "The user email may not be blank : ";
+            }
+            if(userEmail.Length > 50)
+            {
+                Error = Error + "The user email must be less than 50 characters : ";
+            }
             return Error;
+
+
         }
 
         public string Valid(string userName, string password, string userEmail)

@@ -166,7 +166,7 @@ namespace Testing1
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
-            if (AnUsers.JoinedDate != Convert.ToDateTime("23/12/2022"))
+            if (AnUsers.JoinedDate != Convert.ToDateTime("19/05/2022"))
             {
                 //test to fail
                 OK = false;
@@ -232,7 +232,7 @@ namespace Testing1
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
-            if (AnUsers.UserName != "John Pork")
+            if (AnUsers.UserName != "John ")
             {
                 OK = false;
             }
@@ -275,12 +275,13 @@ namespace Testing1
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
-            if (AnUsers.UserEmail != "johnpork@gmail.com")
+            if (AnUsers.UserEmail != "JohnPork@gmail.com")
             {
                 OK = false;
             }
             Assert.IsTrue(OK);
         }
+        /***************** VALIDATION METHOD TESTS*****************/
         [TestMethod]
         public void ValidMethodOK()
         {
@@ -513,6 +514,195 @@ namespace Testing1
             //test to see that the result is OK (there should be an error message)
             Assert.AreNotEqual(Error, "");
         }
+        [TestMethod]
+        public void PasswordMinLessOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "aaaaaaaa";
+            //create some test data to pass to the method
+            string Password = "";// this should trigger an error message
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void PasswordMin()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string Password = "aaaaaaaa";// this should be ok (8 characters)
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void PasswordMinPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string Password = "aaaaaaaaa";// this should be ok (9 characters)
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void PasswordMaxLessOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string Password = "aaaaaaaaaaaaaaaaaaaaa";// this should be ok (21 characters)
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void PasswordMax()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string Password = "aaaaaaaaaaaaaaaaaaaaaa";// this should be ok (22 characters)
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void PasswordMaxPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string Password = "aaaaaaaaaaaaaaaaaaaaaaa";// this should trigger an error message (23 characters)
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be an error message)
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void PasswordMid()
+        {
+            //create an instance of the class we want to create
+            clsUsers AnUsers = new clsUsers();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string Password = "aaaaaaaaaaa";// this should be ok (11 characters)
+            //invoke the method
+            Error = AnUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            //test to see that the result is OK (there should be no error message)
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserEmailMinLessOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers anUsers = new clsUsers();
+            // string variable to store any error message
+            String Error = "";
+            //this should pass 
+            string UserEmail = "aaaaaaaaaaaaaaaaa";// this should pass (17 characters)
+            //invoke the method
+            Error = anUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserEmailMin()
+        {
+            //create an instance of the class we want to create
+            clsUsers anUsers = new clsUsers();
+            // string variable to store any error message
+            String Error = "";
+            //this should pass 
+            string UserEmail = "aaaaaaaaaaaaaaaaaaa";// this should pass (18 characters)
+            Error = anUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserEmailMinPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers anUsers = new clsUsers();
+            // string variable to store any error message
+            String Error = "";
+            //this should pass 
+            string UserEmail = "aaaaaaaaaaaaaaaaaaaa";// this should pass (19 characters)
+            Error = anUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserEmailMaxLessOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers anUsers = new clsUsers();
+            // string variable to store any error message
+            String Error = "";
+            //this should pass 
+            string UserEmail = "";
+            UserEmail = UserEmail.PadRight(49, 'a');// this should pass (49 characters)
+            Error = anUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserEmailMax()
+        {
+            //create an instance of the class we want to create
+            clsUsers anUsers = new clsUsers();
+            // string variable to store any error message
+            String Error = "";
+            //this should pass 
+            string UserEmail = "";
+            UserEmail = UserEmail.PadRight(50, 'a');// this should pass (50 characters)
+            Error = anUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            Assert.AreEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserEmailMaxPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsUsers anUsers = new clsUsers();
+            // string variable to store any error message
+            String Error = "";
+            //this should fail 
+            string UserEmail = "";
+            UserEmail = UserEmail.PadRight(51, 'a');// this should fail (51 characters)
+            Error = anUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            Assert.AreNotEqual(Error, "");
+        }
+        [TestMethod]
+        public void UserEmailMid()
+        {
+            //create an instance of the class we want to create
+            clsUsers anUsers = new clsUsers();
+            // string variable to store any error message
+            String Error = "";
+            //this should pass 
+            string UserEmail = "";
+            UserEmail = UserEmail.PadRight(25, 'a');// this should pass (26 characters)
+            //invoke the method 
+            Error = anUsers.Valid(UserName, Password, UserEmail, JoinedDate);
+            Assert.AreEqual(Error, "");
+        }
     }
 }
+  
 
