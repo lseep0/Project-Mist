@@ -200,10 +200,41 @@ namespace Testing1
             //create an instance of the class we want to create 
             clsUsersCollection FilteredUsers = new clsUsersCollection();
             //apply a username that doesnt exist 
-            FilteredUsers.ReportByUserName("xxxx");
+            FilteredUsers.ReportByUserName("xxxxx");
             //test to see if that there are no records 
             Assert.AreEqual(0, FilteredUsers.Count);
 
         }
+        [TestMethod]
+        public void ReportByUserNameTestDataFound() 
+        {
+            //create an instance of the filtered data 
+            clsUsersCollection FilteredUsers = new clsUsersCollection();
+            //variable to store the outcome 
+            Boolean OK = true;
+            //apply a username that doesnt exist 
+            FilteredUsers.ReportByUserName("yyy yyy");
+            //check if the correct number of records are found 
+            if (FilteredUsers.UsersList.Count == 2)
+            {
+                //check to see that the first record is 25 
+                if (FilteredUsers.UsersList[0].UserID != 25)
+                {
+                    OK = false;
+                }
+                //check to see that the first record is 26
+                if (FilteredUsers.UsersList[1].UserID != 26)
+                {
+                    OK = false;
+                }
+            }
+            else 
+            {
+                OK = false;
+            }
+            //test to see there are no records
+            Assert.IsTrue(OK);
+        }
     }
 }
+

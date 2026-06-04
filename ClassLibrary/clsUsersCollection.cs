@@ -36,18 +36,18 @@ namespace ClassLibrary
 
             }
         }
-        public clsUsers ThisUsers 
+        public clsUsers ThisUsers
         {
-            get 
+            get
             {
                 //return the private data
                 return mThisUsers;
             }
-            set 
+            set
             {
                 //set the private data
                 mThisUsers = value;
-            } 
+            }
         }
 
         //constructor for the class
@@ -60,6 +60,8 @@ namespace ClassLibrary
             //execute stored procedure 
             clsDataConnection DB = new clsDataConnection();
             DB.Execute("sproc_tblUsers_SelectAll");
+            //populate the array 
+            PopulateArray(DB);
             //get the count of records
             RecordCount = DB.Count;
             while (Index < RecordCount)
@@ -137,7 +139,38 @@ namespace ClassLibrary
             DB.AddParameter("@username", UserName);
             //execute the stored procdure 
             DB.Execute("sproc_tblUsers_FilterByUserName");
+            //populate the array list with the data table
+            PopulateArray(DB);
 
+        }
+        void PopulateArray(clsDataConnection DB)
+        {
+            //populates  the array list based on the data in the table in the parameter DB
+            //variable for the index 
+            Int32 Index = 0;
+            //get the count of the records
+            Int32 RecordCount;
+            RecordCount = DB.Count;
+            //clear the private array list 
+            mUsersList = new List<clsUsers>();
+            //while there are records to process 
+            while (Index < RecordCount) 
+            { 
+                clsUsers AnUsers = new clsUsers();
+                //read in the fields from the current record
+                AnUsers.UserID = Convert.ToInt32(DB.DataTable.Rows[Index]["userId"]);
+                AnUsers.UserName = Convert.ToString(DB.DataTable.Rows[Index]["username"]);
+                AnUsers.Password = Convert.ToString(DB.DataTable.Rows[Index]["password_hash"]);
+                AnUsers.UserEmail = Convert.ToString(DB.DataTable.Rows[Index]["email"]);
+                AnUsers.JoinedDate = Convert.ToDateTime(DB.DataTable.Rows[Index]["join_date"]);
+                AnUsers.Active = Convert.ToBoolean(DB.DataTable.Rows[Index]["Active"]);
+                AnUsers.UserEmailVerified = Convert.ToBoolean(DB.DataTable.Rows[Index]["EmailVerified"]);
+                //add the record to the private data memeber 
+                mUsersList.Add(AnUsers);
+                //point at the indez record 
+                Index++;
+
+            }
         }
     }
 }

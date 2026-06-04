@@ -76,4 +76,30 @@ public partial class _1_List : System.Web.UI.Page
             lblError.Text = "Please select a record to delete from the list";
         }
     }
+
+    protected void btnApplyFIlter_Click(object sender, EventArgs e)
+    {
+        //create an instance of the user object 
+        clsUsersCollection AnUsers = new clsUsersCollection();
+        //retrieve the value of the username from the presentation layer 
+        AnUsers.ReportByUserName(txtFilter.Text);
+        lstUsersList.DataSource = AnUsers.UsersList;
+        lstUsersList.DataValueField = "UserID";
+        lstUsersList.DataTextField = "UserName";
+        lstUsersList.DataBind();
+    }
+
+    protected void btnCLearFilter_Click(object sender, EventArgs e)
+    {
+        clsUsersCollection AnUsers = new clsUsersCollection();
+        //Set an empty 
+        AnUsers.ReportByUserName("");
+        //clear any existing filter to tiddy up the interface
+        txtFilter.Text = "";
+        lstUsersList.DataSource = AnUsers.UsersList;
+        lstUsersList.DataValueField = "UserID";
+        lstUsersList.DataTextField = "UserName";
+        lstUsersList.DataBind();
+
+    }
 }
