@@ -121,6 +121,30 @@ namespace TestingGames
             clsGame AGame = new clsGame();
             string Error = "";
             string testTitle = null;
+
+            // You are missing these two lines!
+            Error = AGame.Valid(testTitle, price, releaseDate);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void TitleMinLessOne()
+        {
+            clsGame AGame = new clsGame();
+            string Error = "";
+            string testTitle = "";
+            Error = AGame.Valid(testTitle, price, releaseDate);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void TitleMaxBoundary()
+        {
+            clsGame AGame = new clsGame();
+            string Error = "";
+            string testTitle = "".PadRight(50, 'A');
+            Error = AGame.Valid(testTitle, price, releaseDate);
+            Assert.AreEqual(Error, "");
         }
 
         [TestMethod]
@@ -131,6 +155,26 @@ namespace TestingGames
             string testPrice = "abc"; 
             Error = AGame.Valid(title, testPrice, releaseDate);
             Assert.AreNotEqual(Error, ""); 
+        }
+
+        [TestMethod]
+        public void PriceMinLessOne()
+        {
+            clsGame AGame = new clsGame();
+            string Error = "";
+            string testPrice = "-0.01"; 
+            Error = AGame.Valid(title, testPrice, releaseDate);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void PriceMinBoundary()
+        {
+            clsGame AGame = new clsGame();
+            string Error = "";
+            string testPrice = "0.00"; 
+            Error = AGame.Valid(title, testPrice, releaseDate);
+            Assert.AreEqual(Error, "");
         }
 
         [TestMethod]
