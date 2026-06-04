@@ -253,7 +253,7 @@ namespace Testing1
             //invoke the method
             Found = AnUsers.Find(UserID);
             //check the user id
-            if (AnUsers.Password != "1234")
+            if (AnUsers.Password != "12345678")
             {
                 OK = false;
             }

@@ -136,7 +136,7 @@ namespace ClassLibrary
         public string Valid(string userName, string password, string userEmail, string joinedDate)
         {
             //create a string variable to store the error
-            String Error = "";
+            String Error = "";  
             //create a temporary variable to store the data value
             DateTime DateTemp;
             //if the user name is blank

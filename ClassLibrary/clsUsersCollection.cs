@@ -1,0 +1,146 @@
+﻿using ClassLibrary;
+using System;
+using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
+namespace ClassLibrary
+{
+    public class clsUsersCollection
+    {
+
+        List<clsUsers> mUsersList = new List<clsUsers>();
+
+        //private data member for the ThisUsers property
+        clsUsers mThisUsers = new clsUsers();
+        public List<clsUsers> UsersList
+        {
+            get
+            {
+                //return the private data
+                return mUsersList;
+            }
+            set
+            {
+                //set the private data
+                mUsersList = value;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return mUsersList.Count;
+            }
+            set
+            {
+
+            }
+        }
+        public clsUsers ThisUsers 
+        {
+            get 
+            {
+                //return the private data
+                return mThisUsers;
+            }
+            set 
+            {
+                //set the private data
+                mThisUsers = value;
+            } 
+        }
+
+        //constructor for the class
+        public clsUsersCollection()
+        {
+            //variable for the index
+            Int32 Index = 0;
+            //variable to store the record count
+            Int32 RecordCount = 0;
+            //execute stored procedure 
+            clsDataConnection DB = new clsDataConnection();
+            DB.Execute("sproc_tblUsers_SelectAll");
+            //get the count of records
+            RecordCount = DB.Count;
+            while (Index < RecordCount)
+            {
+                //create a blank user
+                clsUsers AUser = new clsUsers();
+                //read in the fields from the current record
+                AUser.UserID = Convert.ToInt32(DB.DataTable.Rows[Index]["userId"]);
+                AUser.UserName = Convert.ToString(DB.DataTable.Rows[Index]["username"]);
+                AUser.Password = Convert.ToString(DB.DataTable.Rows[Index]["password_hash"]);
+                AUser.UserEmail = Convert.ToString(DB.DataTable.Rows[Index]["email"]);
+                AUser.JoinedDate = Convert.ToDateTime(DB.DataTable.Rows[Index]["join_date"]);
+                AUser.Active = Convert.ToBoolean(DB.DataTable.Rows[Index]["Active"]);
+                AUser.UserEmailVerified = Convert.ToBoolean(DB.DataTable.Rows[Index]["EmailVerified"]);
+                //add the record to the private data member
+                mUsersList.Add(AUser);
+                //point at the next record
+                Index++;
+
+            }
+        }
+
+        public int Add()
+        {
+            //adds a new record to the database based on the values of ThisUsers
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //set the parameters for the stored procedure
+            DB.AddParameter("@username", mThisUsers.UserName);
+            DB.AddParameter("@password_hash", mThisUsers.Password);
+            DB.AddParameter("@email", mThisUsers.UserEmail);
+            DB.AddParameter("@join_date", mThisUsers.JoinedDate);
+            DB.AddParameter("@Active", mThisUsers.Active);
+            DB.AddParameter("@EmailVerified", mThisUsers.UserEmailVerified);
+
+            //execcute the query returning the primary key value
+            return DB.Execute("sproc_tblUsers_Insert");
+        }
+
+        public void Update()
+        {
+            //update an existing record based on the values of ThisUsers
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //set the paramemeters for the  new stored procedure
+            DB.AddParameter("@userId", mThisUsers.UserID);
+            DB.AddParameter("@username", mThisUsers.UserName);
+            DB.AddParameter("@password_hash", mThisUsers.Password);
+            DB.AddParameter("@email", mThisUsers.UserEmail);
+            DB.AddParameter("@join_date", mThisUsers.JoinedDate);
+            DB.AddParameter("@Active", mThisUsers.Active);
+            DB.AddParameter("@EmailVerified", mThisUsers.UserEmailVerified);
+            //Execute the stored procedure
+            DB.Execute("sproc_tblUsers_Update");
+        }
+
+        public void Delete()
+        {
+            //delete the record pointed to by ThisUsers
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //set the parameters for the stored procedure
+            DB.AddParameter("@userId", mThisUsers.UserID);
+            //DB.execute the stored procedure
+            DB.Execute("sproc_tblUsers_Delete");
+
+        }
+
+        public void ReportByUserName(string UserName)
+        {
+            //fillers the records based on a full or partial username
+            //connect to the database 
+            clsDataConnection DB = new clsDataConnection();
+            //send the username parameter to the database 
+            DB.AddParameter("@username", UserName);
+            //execute the stored procdure 
+            DB.Execute("sproc_tblUsers_FilterByUserName");
+
+        }
+    }
+}
+
+
+    
