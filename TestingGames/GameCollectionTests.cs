@@ -158,5 +158,54 @@ namespace Testing1
 
             Assert.AreEqual(0, FilteredGames.Count);
         }
+
+        [TestMethod]
+        public void ReportByTitleTestDataFound()
+        {
+            clsGameCollection FilteredGames = new clsGameCollection();
+            Boolean OK = true;
+            Int32 PrimaryKey = 0;
+            Int32 PrimaryKey2 = 0;
+
+            clsGame TestItem = new clsGame();
+            TestItem.Title = "YYYYY YYYYY";
+            TestItem.Price = 10.00m;
+            TestItem.ReleaseDate = DateTime.Now.Date;
+            TestItem.IsEarlyAccess = false;
+
+            FilteredGames.ThisGame = TestItem;
+            PrimaryKey = FilteredGames.Add();
+            TestItem.GameId = PrimaryKey;
+
+            clsGame TestItem2 = new clsGame();
+            TestItem2.Title = "YYYYY YYYYY";
+            TestItem2.Price = 20.00m;
+            TestItem2.ReleaseDate = DateTime.Now.Date;
+            TestItem2.IsEarlyAccess = false;
+
+            FilteredGames.ThisGame = TestItem2;
+            PrimaryKey2 = FilteredGames.Add();
+            TestItem2.GameId = PrimaryKey2;
+
+            FilteredGames.ReportByTitle("YYYYY YYYYY");
+
+            if (FilteredGames.Count == 2)
+            {
+                if (FilteredGames.GameList[0].GameId != PrimaryKey)
+                {
+                    OK = false;
+                }
+                if (FilteredGames.GameList[1].GameId != PrimaryKey2)
+                {
+                    OK = false;
+                }
+            }
+            else
+            {
+                OK = false;
+            }
+
+            Assert.IsTrue(OK);
+        }
     }
 }

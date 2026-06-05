@@ -8,6 +8,14 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <div class="user-status">
+                 <asp:Label ID="lblUserStatus" runat="server" Font-Bold="True"></asp:Label>
+            </div>
+
+                <asp:Button ID="btnLogout" runat="server" Text="Log Out" OnClick="btnLogout_Click" />
+                <br /><br />
+    
+             <h2>Mist Store Games Dashboard</h2>
             <asp:ListBox ID="lstGameList" runat="server" Height="250px" Width="300px"></asp:ListBox>
             <asp:TextBox ID="txtTitle" runat="server"></asp:TextBox>
             <asp:Button ID="btnFilter" runat="server" Text="Filter" OnClick="btnFilter_Click" />

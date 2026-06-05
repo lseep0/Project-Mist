@@ -42,9 +42,20 @@ namespace ClassLibrary
             string Error = "";
             DateTime DateTemp;
 
+            if (title == null)
+            {
+                title = "";
+            }
+
             // --- Title Validation ---
             if (title.Length == 0) { Error = Error + "The title cannot be blank. "; }
             if (title.Length > 50) { Error = Error + "The title must be less than 50 chars. "; }
+            
+            if (title.Length == 0)
+            {
+                Error = Error + "The title may not be blank : ";
+            }
+
 
             // --- Price Validation ---
             try
