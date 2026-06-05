@@ -12,6 +12,11 @@ namespace AdminSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             if (IsPostBack == false)
             {
                 DisplayGames();
@@ -67,6 +72,14 @@ namespace AdminSystem
             {
                 lblError.Text = "Please select a record to delete from the list.";
             }
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            Response.Redirect("Login.aspx");
         }
 
     }
