@@ -96,7 +96,7 @@ public partial class _1_List : System.Web.UI.Page
         AnUsers.ReportByUserName("");
         //clear any existing filter to tiddy up the interface
         txtFilter.Text = "";
-        lstUsersList.DataSource = AnUsers.UsersList;
+                lstUsersList.DataSource = AnUsers.UsersList;
         lstUsersList.DataValueField = "UserID";
         lstUsersList.DataTextField = "UserName";
         lstUsersList.DataBind();

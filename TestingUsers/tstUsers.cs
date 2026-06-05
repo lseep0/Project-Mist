@@ -430,7 +430,7 @@ namespace Testing1
         public void JoinedDateMinLessOne()
         {
             //create an instance of the class we want to create
-            clsUsers AnUsers = new clsUsers();
+            clsUsers AnUsers = new clsUsers(); +6
             //string variable to store any error message
             String Error = "";
             //create a variable to store the test data

@@ -67,17 +67,17 @@ namespace ClassLibrary
             while (Index < RecordCount)
             {
                 //create a blank user
-                clsUsers AUser = new clsUsers();
+                clsUsers AnUsers = new clsUsers();
                 //read in the fields from the current record
-                AUser.UserID = Convert.ToInt32(DB.DataTable.Rows[Index]["userId"]);
-                AUser.UserName = Convert.ToString(DB.DataTable.Rows[Index]["username"]);
-                AUser.Password = Convert.ToString(DB.DataTable.Rows[Index]["password_hash"]);
-                AUser.UserEmail = Convert.ToString(DB.DataTable.Rows[Index]["email"]);
-                AUser.JoinedDate = Convert.ToDateTime(DB.DataTable.Rows[Index]["join_date"]);
-                AUser.Active = Convert.ToBoolean(DB.DataTable.Rows[Index]["Active"]);
-                AUser.UserEmailVerified = Convert.ToBoolean(DB.DataTable.Rows[Index]["EmailVerified"]);
+                AnUsers.UserID = Convert.ToInt32(DB.DataTable.Rows[Index]["userId"]);
+                AnUsers.UserName = Convert.ToString(DB.DataTable.Rows[Index]["username"]);
+                AnUsers.Password = Convert.ToString(DB.DataTable.Rows[Index]["password_hash"]);
+                AnUsers.UserEmail = Convert.ToString(DB.DataTable.Rows[Index]["email"]);
+                AnUsers.JoinedDate = Convert.ToDateTime(DB.DataTable.Rows[Index]["join_date"]);
+                AnUsers.Active = Convert.ToBoolean(DB.DataTable.Rows[Index]["Active"]);
+                AnUsers.UserEmailVerified = Convert.ToBoolean(DB.DataTable.Rows[Index]["EmailVerified"]);
                 //add the record to the private data member
-                mUsersList.Add(AUser);
+                mUsersList.Add(AnUsers);
                 //point at the next record
                 Index++;
 
